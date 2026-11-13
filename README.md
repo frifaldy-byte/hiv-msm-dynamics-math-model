@@ -4,63 +4,63 @@
 
 This repository contains the computational implementation and numerical analysis of a compartmental ordinary differential equation (ODE) model of HIV transmission and engagement in prevention and care among men who have sex with men (MSM).
 
-The model considers the progression of HIV infection alongside key prevention and treatment pathways, including pre-exposure prophylaxis (PrEP), HIV diagnosis, antiretroviral therapy (ART), viral suppression, treatment disengagement, and re-engagement in care.
+The model describes HIV transmission alongside key prevention and treatment pathways, including pre-exposure prophylaxis (PrEP), HIV diagnosis, antiretroviral therapy (ART), viral suppression, treatment disengagement, and re-engagement in care.
 
-An important part of the formulation is the inclusion of two dynamic social variables: HIV-related stigma and confidence in prevention and care services. These variables influence selected transition rates within the epidemiological system and are incorporated into the model as endogenous state variables rather than fixed external factors.
+Two dynamic social variables are incorporated into the model: HIV-related stigma and confidence in prevention and care services. These variables represent aggregate social conditions and influence selected transition rates within the epidemiological system. Rather than being treated as fixed external parameters, stigma and service confidence are modelled as endogenous state variables that evolve over time and interact with the epidemiological dynamics.
 
-The work combines mathematical formulation, equilibrium analysis, reproduction-number calculations, numerical simulation, parameter sensitivity assessment, and intervention scenario analysis.
+The analysis covers the mathematical formulation of the model, disease-free equilibrium, the basic reproduction number, local stability, numerical equilibrium searches, time-dependent simulations, parameter sensitivity, parameter-scenario analysis, and intervention scenarios.
 
 ## Model Structure
 
-The model consists of six population compartments and two additional social state variables.
+The model consists of six epidemiological compartments and two additional social state variables.
 
 | Variable | Description |
 |---|---|
-| \(S\) | Susceptible individuals not using PrEP |
-| \(P\) | Susceptible individuals protected by PrEP |
-| \(I_u\) | HIV-positive individuals who remain undiagnosed |
-| \(D\) | Diagnosed individuals not yet virally suppressed |
-| \(T\) | Individuals receiving ART with sustained viral suppression |
-| \(L\) | Individuals temporarily disengaged from ART |
-| \(\sigma\) | HIV-related stigma index |
-| \(C\) | Confidence in HIV prevention and care services |
+| $S$ | Susceptible individuals not using PrEP |
+| $P$ | Susceptible individuals protected by PrEP |
+| $I_u$ | HIV-positive individuals who remain undiagnosed |
+| $D$ | Diagnosed individuals not yet virally suppressed |
+| $T$ | Individuals receiving ART with sustained viral suppression |
+| $L$ | Individuals disengaged from ART care |
+| $\sigma$ | HIV-related stigma index |
+| $C$ | Confidence in HIV prevention and care services |
 
-The epidemiological compartments are connected through infection, prevention, diagnosis, treatment, disengagement, and re-engagement pathways.
+The epidemiological compartments are connected through infection, PrEP initiation and discontinuation, diagnosis, ART-mediated viral suppression, treatment disengagement, and re-engagement in care.
 
-The force of infection accounts for contributions from undiagnosed, diagnosed, virally suppressed, and ART-disengaged individuals. PrEP protection is represented through a reduced acquisition risk among individuals in the protected compartment.
+The force of infection accounts for the relative infectiousness contributions of undiagnosed, diagnosed but unsuppressed, virally suppressed, and ART-disengaged individuals. PrEP protection is represented by a reduced acquisition risk among individuals in compartment $P$. Under the baseline sustained viral suppression assumption, the relative infectiousness weight assigned to compartment $T$ is zero ($\eta_T=0$).
 
-The social subsystem describes changes in stigma and service confidence over time. Stigma and confidence jointly regulate selected prevention and care transition rates through bounded logistic functions. Service engagement also contributes feedback to the confidence variable.
+The social subsystem describes changes in stigma and service confidence over time. Both variables jointly regulate selected prevention and care transition rates through bounded logistic functions. The service-confidence feedback term is specifically linked to diagnosis and ART-mediated viral suppression flows; it does not represent every form of prevention or care engagement.
 
-The total population is defined over the six epidemiological compartments only. The stigma and service-confidence variables are not population compartments.
+The total population is defined as the sum of the six epidemiological compartments. The stigma and service-confidence variables are dimensionless indices and are not included in the population total.
 
 ## Mathematical and Numerical Analysis
 
 The computational framework includes the following analyses:
 
-- **Disease-free equilibrium (DFE):** determination of the infection-free state, including the equilibrium of the social subsystem.
-- **Basic reproduction number (\(R_0\)):** analytical derivation using the next-generation framework, with an independent numerical check based on the spectral radius of the next-generation matrix.
-- **Equilibrium analysis:** numerical identification of disease-free and endemic equilibrium candidates, followed by residual and feasibility checks.
-- **Local stability:** assessment using eigenvalues of the Jacobian matrix evaluated at the equilibrium candidates.
-- **Time-dependent simulations:** numerical integration of the ODE system to examine changes in susceptible, infected, treatment, and social states.
-- **Sensitivity analysis:** assessment of how selected model parameters influence the reproduction number.
-- **Parameter uncertainty:** exploration of the resulting \(R_0\) distribution under independent uniform parameter scenarios.
+- **Disease-free equilibrium (DFE):** determination of the infection-free state, including the corresponding equilibrium values of the social variables.
+- **Basic reproduction number ($R_0$):** analytical derivation using the next-generation matrix framework, with an independent numerical check based on the spectral radius of the next-generation matrix.
+- **Equilibrium analysis:** numerical identification of disease-free and endemic equilibrium candidates, with residual and feasibility checks.
+- **Local stability:** assessment using the eigenvalues of the Jacobian matrix evaluated at the relevant equilibrium states.
+- **Time-dependent simulations:** numerical integration of the ODE system to examine changes in epidemiological compartments and social variables over time.
+- **Sensitivity analysis:** assessment of the effects of selected parameter changes on the basic reproduction number.
+- **Parameter-scenario analysis:** exploration of variation in $R_0$ under independently sampled uniform parameter intervals.
 - **Intervention scenarios:** comparison of baseline conditions, stigma reduction, confidence enhancement, and their combined implementation.
 
-The numerical analyses are intended to examine the mathematical behaviour of the proposed model under the stated assumptions and parameter scenarios.
+The analyses are intended to examine the mathematical behaviour of the proposed system under specified assumptions and parameter scenarios.
 
 ## Repository Contents
 
-The repository contains a standalone Jupyter Notebook and a compressed package with the organized research files.
+The repository provides a standalone Jupyter Notebook and a compressed research package containing the organised analysis files.
 
 ### Main files
 
-- `hiv-msm-math-model.ipynb` — Jupyter Notebook containing the model implementation and numerical workflow.
-- `HIV_MSM_Research_Package.zip` — organized package containing the analysis notebook, Python source code, figures, numerical results, parameter files, and documentation.
+- `hiv-msm-math-model.ipynb` — Jupyter Notebook containing the model implementation and numerical analysis.
+- `HIV_MSM_Research_Package.zip` — compressed package containing the analysis notebook, Python source code, figures, numerical results, parameter files, and documentation.
 - `LICENSE` — MIT License.
 
 ### Contents of the research package
 
-After extracting the ZIP archive, the project is organized as follows:
+After extracting the ZIP archive, the project is organised as follows:
 
 ```text
 HIV_MSM_Research_Package/
@@ -104,21 +104,23 @@ HIV_MSM_Research_Package/
 
 ## Getting Started
 
-The complete analysis can be reproduced using Python and JupyterLab.
+The analysis can be reproduced using Python and JupyterLab.
 
 ### 1. Download the repository
 
-Clone the repository:
+Clone the repository using Git:
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone <repository-url>
 ```
 
-Alternatively, download the repository as a ZIP file from GitHub.
+Replace `<repository-url>` with the HTTPS or SSH URL of this repository.
+
+Alternatively, download the repository as a ZIP file from GitHub and extract it locally.
 
 ### 2. Extract the research package
 
-Extract:
+If you downloaded the repository ZIP, locate and extract:
 
 ```text
 HIV_MSM_Research_Package.zip
@@ -134,7 +136,7 @@ Install the required Python packages:
 python -m pip install -r 05_documentation/requirements.txt
 ```
 
-The main dependencies are NumPy, Pandas, SciPy, Matplotlib, IPython, and JupyterLab.
+The main dependencies include NumPy, Pandas, SciPy, Matplotlib, IPython, and JupyterLab.
 
 ### 4. Run the Jupyter Notebook
 
@@ -144,7 +146,7 @@ Start JupyterLab:
 jupyter lab
 ```
 
-Open:
+Open the following notebook:
 
 ```text
 01_notebooks/hiv-msm-math-model_FINAL.ipynb
@@ -152,7 +154,7 @@ Open:
 
 Run the notebook cells sequentially, starting from the first cell.
 
-The analysis can also be executed as a standalone Python script from the project root:
+The analysis can also be executed using the standalone Python script from the research package root:
 
 ```bash
 python 02_source_code/hiv-msm-math-model_FINAL.py
@@ -162,29 +164,39 @@ The compartment diagram can be regenerated separately using `compartment_diagram
 
 ## Figures and Numerical Outputs
 
-Figures are saved in the `03_figures/` directory, while numerical tables and parameter files are stored under `04_results/`.
+Figures are stored in the `03_figures/` directory, while numerical tables and parameter files are organised under `04_results/`.
 
-The outputs include compartment trajectories, prevalence curves, equilibrium candidates, reproduction-number sensitivity, parameter-scenario distributions, and intervention comparisons.
+The outputs include:
 
-The CSV files provide the underlying numerical values for further inspection, plotting, and use in scientific manuscripts.
+- Epidemiological compartment trajectories.
+- HIV prevalence trajectories.
+- Social-state dynamics.
+- Disease-free and endemic equilibrium results.
+- Basic reproduction number sensitivity analysis.
+- Parameter-scenario distributions.
+- Intervention scenario comparisons.
 
-The compartment diagram is available in PNG, PDF, and SVG formats. Vector formats are provided for use in manuscripts and presentation materials.
+The accompanying CSV files provide numerical values for further inspection and plotting. Parameter files are provided in JSON and CSV formats to document the values used in the model.
+
+The compartment diagram is available in PNG, PDF, and SVG formats. The vector formats can be used in manuscripts and presentations.
 
 ## Reproducibility and Interpretation
 
-A fixed random seed is used for the parameter-scenario sampling procedure. Numerical integration, equilibrium searches, residual checks, and stability calculations are implemented in the notebook and corresponding Python source.
+A fixed random seed is used for parameter-scenario sampling. Numerical integration, equilibrium searches, residual checks, and local stability calculations are implemented in the Jupyter Notebook and corresponding Python source code.
 
-The parameter set is illustrative and includes proxy-based values and explicit modelling assumptions. The baseline reproduction number is set to a target value by calibrating the transmission parameter; it should not be interpreted as an independently estimated epidemiological quantity.
+The parameter set is illustrative and combines explicit modelling assumptions with selected literature-based time-scale anchors. The baseline reproduction number is set to a target value of $R_0=1.20$ by calibrating the transmission parameter $\beta$. It should therefore not be interpreted as an independently estimated epidemiological quantity.
 
-In particular:
+Several assumptions are important when interpreting the results:
 
-- The baseline PrEP transition rates imply a high PrEP coverage scenario at the disease-free equilibrium.
-- The sustained viral suppression assumption is represented by setting the corresponding infectiousness contribution to zero in the baseline scenario.
-- Prevalence at the end of the 100-year simulation is a transient value unless convergence to equilibrium is separately established.
-- Uniform parameter sampling describes a range of model scenarios, not an empirical confidence interval or posterior distribution.
-- The numerical equilibrium scan is exploratory and does not establish uniqueness or the formal direction of a bifurcation.
+- The baseline PrEP transition rates imply a high PrEP coverage scenario at the disease-free equilibrium. This represents a specified modelling scenario rather than a general estimate of PrEP coverage among MSM.
+- Sustained viral suppression is represented by assigning zero relative infectiousness to compartment $T$ under the baseline assumption.
+- The prevalence at the end of the 100-year simulation is a finite-time result and should not be interpreted as an endemic equilibrium unless convergence to that equilibrium has been established.
+- Independent uniform parameter sampling describes variation across the specified parameter intervals. The resulting percentile range is not an empirical confidence interval or posterior distribution.
+- The numerical equilibrium search uses multiple initial conditions and a finite parameter grid. It is exploratory and does not establish the uniqueness of endemic equilibria or the formal direction of a bifurcation.
+- The model assumes homogeneous mixing and does not explicitly represent individual-level sexual networks or all sources of behavioural heterogeneity.
+- The social variables represent aggregate conditions and do not distinguish individual experiences or separate dimensions of stigma.
 
-The results should therefore be interpreted in relation to the model structure, parameter choices, and stated assumptions. The framework is intended for mathematical investigation and scenario analysis, rather than direct clinical prediction or population-level forecasting.
+The framework is intended for mathematical investigation and scenario analysis. Its results should be interpreted in relation to the model structure, parameter choices, and stated assumptions. The model has not been calibrated or externally validated against a defined population dataset and is not intended for direct clinical prediction or population-level forecasting.
 
 ## License
 
